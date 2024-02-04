@@ -1,61 +1,60 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
     <div class="navigation">
-        <a href="instructions.html">Instructions</a>
-        <a href="index.html">Home</a>
-        <a href="other_projects.html">Other Projects</a>
+      <a href="instructions.html">Instructions</a>
+      <a href="index.html">Home</a>
+      <a href="other_projects.html">Other Projects</a>
     </div>
-    
-    <div id="header">Crochet Helper</div>
-    <div class="box">
-    <textarea id="pattern" rows="20" cols="50"></textarea><br>
-    <button onclick="processPattern()">Submit</button>
-    <div id="output"></div>
-    
-    <div id="credit">By: Jacob Atienza</div>
-    </div>
+    <div class="headers-index">
+    <h1>Crochet Helper</h1>
+      <textarea id="pattern" rows="20" cols="50">
+Enter Crochet Pattern Here! See instructions for formatting guide.</textarea><br/>
+      <button onclick="processPattern()">Submit</button>
+      <div id="output"></div>
+
+      <p>By: Jacob Atienza</p>
+  </div>
     <script>
-        var pattern, output, index, count, maxCount;
+      var pattern, output, index, count, maxCount;
 
-        function processPattern() {
-            pattern = document.getElementById('pattern').value.split('\n');
-            output = document.getElementById('output');
-            output.innerHTML = '';
-            index = 0;
-            startRow();
-        }
+      function processPattern() {
+        pattern = document.getElementById("pattern").value.split("\n");
+        output = document.getElementById("output");
+        output.innerHTML = "";
+        index = 0;
+        startRow();
+      }
 
-        function startRow() {
-    if (index >= pattern.length) return; 
+      function startRow() {
+        if (index >= pattern.length) return;
 
-    var row = document.createElement('div');
-    var counter = document.createElement('button');
-    count = 0;
+        var row = document.createElement("div");
+        var counter = document.createElement("button");
+        count = 0;
 
+        var match = pattern[index].match(/\((\d+)\)/);
+        maxCount = match ? parseInt(match[1]) : 1;
 
-    var match = pattern[index].match(/\((\d+)\)/);
-    maxCount = match ? parseInt(match[1]) : 1;
-
-    counter.innerHTML = 'Next';
-    counter.onclick = function() {
-        count++;
-        counter.innerHTML = 'Next (' + count + ')';
-        if (count == maxCount) {
+        counter.innerHTML = "Next";
+        counter.onclick = function () {
+          count++;
+          counter.innerHTML = "Next (" + count + ")";
+          if (count == maxCount) {
             index++;
             startRow();
-        }
-    };
-    row.innerHTML = (index + 1) + ': ' + pattern[index] + ' ';
-    row.appendChild(counter);
-    output.appendChild(row);
-}
-
-
+          }
+        };
+        row.innerHTML = index + 1 + ": " + pattern[index] + " ";
+        row.appendChild(counter);
+        output.appendChild(row);
+      }
     </script>
-</body>
+  </body>
 </html>
